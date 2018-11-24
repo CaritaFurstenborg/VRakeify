@@ -9,6 +9,7 @@ namespace Balettinakit
     public class Flow : MonoBehaviour
     {
         public GameObject PlayerPrefab;
+        public GameObject GameOverPref;
         private Player player;
 
         void Start()
@@ -27,6 +28,7 @@ namespace Balettinakit
             var sphe = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             sphe.transform.position = player.transform.position;
             Destroy(player.gameObject);
+            GameObject go = Instantiate(GameOverPref);
         }
 
     }

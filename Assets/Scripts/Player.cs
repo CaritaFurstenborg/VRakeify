@@ -12,10 +12,9 @@ namespace Balettinakit
         public float Speed;
         private Rigidbody playerRb;
         private Vector3 direction;
-        private Vector3 rotationAngle;
         private Vector3 lastPos;
         private Vector3 lastHorizontalVec;
-        private Vector3 lastBodypicePos;
+        private GameObject lastBodypice;
         private Queue<GameObject> body = new Queue<GameObject>();
         [SerializeField] private Text scoreText;
         private int counter = 0;
@@ -37,8 +36,14 @@ namespace Balettinakit
                 counter = 0;
                 if (body.Count > 0)
                 {
+                    if (lastBodypice != null)
+                    {
+                        lastBodypice.GetComponent<Collider>().enabled = true;
+                    }
                     var b = body.Dequeue();
+                    b.GetComponent<Collider>().enabled = false;
                     b.transform.position = lastPos;
+                    lastBodypice = b;
                     body.Enqueue(b);
                     lastPos = transform.position;
                 }
@@ -53,8 +58,9 @@ namespace Balettinakit
 
         public void AddBodyPice()
         {
-            lastPos = transform.position - (transform.InverseTransformDirection(direction) * 1.2f);
-            var bodyPart = Instantiate(BodyPicePrefab, lastPos, Quaternion.identity);
+            var pos = transform.position - (transform.InverseTransformDirection(direction) * 1.2f);
+            var bodyPart = Instantiate(BodyPicePrefab, pos, Quaternion.identity);
+            bodyPart.GetComponent<Collider>().enabled = false;
             body.Enqueue(bodyPart);
             Speed += 0.2f;
             scoreText.text = "Score: " + body.Count.ToString();

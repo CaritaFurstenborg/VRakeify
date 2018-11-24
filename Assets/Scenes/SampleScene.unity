@@ -391,6 +391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 1245224849980634, guid: b999a19a9bdde9f4a98f7141c2051378,
     type: 2}
+  GameOverPref: {fileID: 1565141232685876, guid: ddb4aa380fda7c34c8a1dff6e2ad8e8f,
+    type: 2}
 --- !u!4 &423380048
 Transform:
   m_ObjectHideFlags: 0
